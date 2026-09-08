@@ -1,0 +1,232 @@
+1. ImageEdit :
+
+POST - http://127.0.0.1:8000/api/designs/edit/
+
+request
+
+{
+    "design_id": null,
+    "background": "media/templates/img.png",
+    "canvas": {
+        "width": 1000,
+        "height": 1000
+    },
+    "elements": [
+        {
+            "id": "text_01",
+            "type": "text",
+            "x": 50,
+            "y": 100,
+            "z_index": 2,
+            "content": {
+                "text": " hyy helllooo"
+            },
+            "style": {
+                "font_size": 40,
+                "color": "#FFFFFF",
+                "font_family": "arial"
+            }
+        }
+    ]
+}
+
+
+request -2 :
+
+
+{
+    "design_id": "04909e50-4e90-4bbd-bd5a-7f98d300191c", 
+    "background": "media/templates/img.png",
+    "canvas": {
+        "width": 1080,
+        "height": 1080
+    },
+    "elements": [
+        {
+            "id": "shape_1",
+            "type": "shape",
+            "x": 100,
+            "y": 100,
+            "width": 300,
+            "height": 150,
+            "z_index": 1,
+            "content": {
+                "shape": "rounded_rectangle"
+            },
+            "style": {
+                "color": "#4A90E2",
+                "opacity": 0.9,
+                "border_radius": 40,
+                "stroke_color": "#000000",
+                "stroke_width": 5
+            }
+        },
+        {
+            "id": "shape_2",
+            "type": "shape",
+            "x": 500,
+            "y": 100,
+            "width": 200,
+            "height": 200,
+            "z_index": 2,
+            "content": {
+                "shape": "star"
+            },
+            "style": {
+                "color": "#F5A623",
+                "opacity": 1.0,
+                "stroke_color": "#D0021B",
+                "stroke_width": 3
+            }
+        },
+        {
+            "id": "shape_3",
+            "type": "shape",
+            "x": 100,
+            "y": 400,
+            "width": 800,
+            "height": 5,
+            "z_index": 3,
+            "content": {
+                "shape": "line"
+            },
+            "style": {
+                "color": "#000000",
+                "opacity": 0.5,
+                "stroke_width": 10
+            }
+        }
+    ]
+}
+
+
+
+response :
+
+{
+  "status": "success",
+  "message": "Image generated successfully.",
+  "data": {
+    "design_id": "5e51a9b9-970c-41b4-8389-9904d51b80f1",
+    "output_image_url": "http://127.0.0.1:8000/media/outputs/5e51a9b9-970c-41b4-8389-9904d51b80f1.png",
+    "preview_image_url": "http://127.0.0.1:8000/media/outputs/previews/5e51a9b9-970c-41b4-8389-9904d51b80f1_preview.png",
+    "canvas": {
+      "width": 1000,
+      "height": 1000
+    },
+    "elements_count": 1,
+    "processing_time_ms": 314
+  }
+}
+
+
+
+# Second time image edit so old id in request 
+
+
+2. Delete Design (Delete Image & Data) :
+
+http://127.0.0.1:8000/api/designs/<uuid:pk>/
+
+Request Body: (None)
+
+Postman Example: http://127.0.0.1:8000/api/designs/8e4f8384-a0d8-415e-8bd3-669c03335655/
+
+Response :
+
+{
+    "status": "success",
+    "message": "Design deleted successfully.",
+    "data": {
+        "design_id": "8e4f8384-a0d8-415e-8bd3-669c03335655"
+    }
+}
+
+
+3. Get Single Design Detail :
+
+GET : http://127.0.0.1:8000/api/designs/<uuid:pk>/
+
+Response :
+
+{
+    "status": "success",
+    "message": "OK",
+    "data": {
+        "id": "8e4f8384-a0d8-415e-8bd3-669c03335655",
+        "background_url": "media/templates/img.png",
+        "output_image": "/media/outputs/8e4f8384...png",
+        "elements_json": [...]
+    }
+}
+
+4. List All Designs (With Pagination) :
+
+GET : http://127.0.0.1:8000/api/designs/
+
+Response :
+
+
+{
+    "status": "success",
+    "data": {
+        "count": 5,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "id": "8e4f8384...",
+                "preview_image": "/media/outputs/previews/8e4f8384...png",
+                "updated_at": "2024-03-20T..."
+            }
+        ]
+    }
+}
+
+
+5. Save : 
+
+POST : http://127.0.0.1:8000/api/designs/save/
+
+Request :
+{
+    "design_id": "04909e50-4e90-4bbd-bd5a-7f98d300191c", 
+    "background": "media/templates/img.png",
+    "canvas": {
+        "width": 1080,
+        "height": 1080
+    },
+    "elements": [
+        {
+            "id": "shape_1",
+            "type": "shape",
+            "x": 100,
+            "y": 100,
+            "width": 300,
+            "height": 150,
+            "z_index": 1,
+            "content": {
+                "shape": "rounded_rectangle"
+            },
+            "style": {
+                "color": "#4A90E2",
+                "opacity": 0.9,
+                "border_radius": 40,
+                "stroke_color": "#000000",
+                "stroke_width": 5
+            }
+        },
+        
+    ]
+}
+
+Response :
+
+{
+  "status": "success",
+  "message": "Design saved.",
+  "data": {
+    "design_id": "04909e50-4e90-4bbd-bd5a-7f98d300191c",
+    "updated_at": "2026-04-14T06:43:27.442188+00:00"
+  }
+}
